@@ -75,8 +75,6 @@ def rap(bot, trigger, found_match=None):
 			w = w.replace("'s\n", "").strip()
 			if w[-1] == 's':
 				continue
-			if w[-1] == 'g':
-				continue
 			break
 		bot.say('the first word is: ' + w)
 		rap_time = time.time()

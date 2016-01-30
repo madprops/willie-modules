@@ -42,9 +42,9 @@ def vidya(bot, trigger, found_match=None):
 
 		print game.image
 
-		s + " " + game.image.super
+		s += u'\x02' + " URL: " + u'\x02' + game.site_detail_url
 
 		bot.say(s)
 
 	except:
-		bot.say('game not foundn')
+		bot.say('game not found')
