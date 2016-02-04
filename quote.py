@@ -82,8 +82,9 @@ def quote(bot, trigger, found_match=None):
 			d = -2 + x
 			s = linecache.getline(fname, n + d)
 			if s != '':
-				s = ' '.join(s.split()).strip()
-				bot.say(s[16:])
+				s = ' '.join(s.split()).strip()[16:]
+				if s.startswith('<'):
+					bot.say(s)
 
 	else:
 		with open(fname, 'r') as f:
