@@ -69,7 +69,7 @@ def par(bot, trigger, found_match=None):
 
 		par_said_words = []
 		bot.say('you have ' + str(par_time_limit) + ' seconds to write a word that starts with the last letter of the following word.')
-		line_number = random.randint(0, 354983)
+		line_number = random.randint(1, 354984)
 		w = linecache.getline('/home/willie/words', line_number)
 		w = w.replace("'s\n", "").strip()
 		bot.say('the first word is: ' + w)

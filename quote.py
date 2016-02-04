@@ -2,8 +2,8 @@
 
 import re
 import random
+import linecache
 from willie.module import commands
-
 
 def dots():
 	s = ''
@@ -14,6 +14,13 @@ def dots():
 
 @commands('q')
 def quote(bot, trigger, found_match=None):
+
+	global last_date
+
+	try:
+		last_date
+	except NameError:
+		last_date = ''
 
 	arguments = trigger[3:].strip()
 
@@ -27,13 +34,17 @@ def quote(bot, trigger, found_match=None):
 		with open(fname, 'r') as f:
 			log = f.read()
 
-		p = re.compile(ur"^\w+ \d+ \d+:\d+:\d+ (<(?!madbot|flanfly|SuikaIbuki|Wobbuffet|Internets|kindbot|ChanStat)[^>]+>\t(?![.!~,]).*\b" + string + ur"\b.*)", re.MULTILINE | re.IGNORECASE)
+		p = re.compile(ur"^(\w+ \d+ \d+:\d+:\d+ <(?!madbot|flanfly|SuikaIbuki|Wobbuffet|Internets|kindbot|ChanStat)[^>]+>\t(?![.!~,]).*\b" + string + ur"\b.*)", re.MULTILINE | re.IGNORECASE)
 
 		try:
 
 			results = re.findall(p, log)
 
-			bot.say(' '.join(random.choice(results).split()))
+			result = random.choice(results)
+
+			last_date = result[0:15]
+
+			bot.say(' '.join(result.split())[16:])
 
 		except:
 
@@ -57,20 +68,41 @@ def quote(bot, trigger, found_match=None):
 
 			bot.say('no quote found' + dots() + ' you searched for ' + string)
 
+	elif arguments[0:7] == 'context':
+
+		with open(fname, 'r') as f:
+			log = f.read()
+
+		for i, line in enumerate(log.split('\n'), 1):
+			if last_date in line:
+				n = i
+				break
+
+		for x in range(0, 5):
+			d = -2 + x
+			s = linecache.getline(fname, n + d)
+			if s != '':
+				s = ' '.join(s.split()).strip()
+				bot.say(s[16:])
+
 	else:
 		with open(fname, 'r') as f:
 			log = f.read()
 
 		if arguments != '':
-			p = re.compile(ur"^\w+ \d+ \d+:\d+:\d+ (<" + arguments + ur">\t[^.!~,].*)", re.MULTILINE | re.IGNORECASE)
+			p = re.compile(ur"^(\w+ \d+ \d+:\d+:\d+ <" + arguments + ur">\t[^.!~,].*)", re.MULTILINE | re.IGNORECASE)
 		else:
-			p = re.compile(ur'^\w+ \d+ \d+:\d+:\d+ (<(?!madbot|flanfly|SuikaIbuki|Wobbuffet|Internets|kindbot|ChanStat)[^>]+>\t[^.!~,].*)', re.MULTILINE)
+			p = re.compile(ur'^(\w+ \d+ \d+:\d+:\d+ <(?!madbot|flanfly|SuikaIbuki|Wobbuffet|Internets|kindbot|ChanStat)[^>]+>\t[^.!~,].*)', re.MULTILINE)
 
 		try:
 
 			results = re.findall(p, log)
 
-			bot.say(' '.join(random.choice(results).split()))
+			result = random.choice(results)
+
+			last_date = result[0:15]
+
+			bot.say(' '.join(result.split())[16:])
 
 		except:
 

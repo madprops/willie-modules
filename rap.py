@@ -70,7 +70,7 @@ def rap(bot, trigger, found_match=None):
 		rap_said_words = []
 		bot.say('you have ' + str(rap_time_limit) + ' seconds to write a word that ends with the last letter of the following word.')
 		while True:
-			line_number = random.randint(0, 354983)
+			line_number = random.randint(1, 354984)
 			w = linecache.getline('/home/willie/words', line_number)
 			w = w.replace("'s\n", "").strip()
 			if w[-1] == 's':

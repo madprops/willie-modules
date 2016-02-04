@@ -15,7 +15,7 @@ def dots():
 @commands('memes')
 def memes(bot, trigger, found_match=None):
 
-	with open('/home/willie/neritic.log', 'r') as f:
+	with open('/home/willie/#neritic-net.log', 'r') as f:
 		log = f.read()
 
 	p = re.compile(ur"^\w+ \d+ \d+:\d+:\d+ (<" + 'lemmy' + ur">\t.*" + 'imgur.com' + ur".*)", re.MULTILINE | re.IGNORECASE)
