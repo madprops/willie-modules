@@ -70,21 +70,29 @@ def quote(bot, trigger, found_match=None):
 
 	elif arguments[0:7] == 'context':
 
-		with open(fname, 'r') as f:
-			log = f.read()
+		if last_date != '':
 
-		for i, line in enumerate(log.split('\n'), 1):
-			if last_date in line:
-				n = i
-				break
+			with open(fname, 'r') as f:
+				log = f.read()
 
-		for x in range(0, 5):
-			d = -2 + x
-			s = linecache.getline(fname, n + d)
-			if s != '':
-				s = ' '.join(s.split()).strip()[16:]
-				if s.startswith('<'):
-					bot.say(s)
+			lines = log.split('\n')
+
+			for i, line in enumerate(lines, 0):
+				if last_date in line:
+					n = i
+					break
+
+			for x in range(0, 5):
+				d = -2 + x
+				try:
+					s = lines[n + d]
+					s = ' '.join(s.split()).strip()[16:]
+					if s.startswith('<'):
+						bot.say(s)
+				except:
+					pass
+
+			last_date = ''
 
 	else:
 		with open(fname, 'r') as f:
