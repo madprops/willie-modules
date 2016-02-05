@@ -22,11 +22,9 @@ def quote(bot, trigger, found_match=None):
 	except NameError:
 		last_date = ''
 
-	arguments = trigger[3:].strip()
-
+	arguments = ' '.join(trigger[3:].strip().split())
 
 	fname = '/home/willie/' + trigger.sender + '.log'
-
 
 	if arguments[0:7] == 'search ':
 		string = arguments[7:]
@@ -98,9 +96,27 @@ def quote(bot, trigger, found_match=None):
 		with open(fname, 'r') as f:
 			log = f.read()
 
+		term = ''
+		username = ''
+
 		if arguments != '':
-			p = re.compile(ur"^(\w+ \d+ \d+:\d+:\d+ <" + arguments + ur">\t[^.!~,].*)", re.MULTILINE | re.IGNORECASE)
+
+			ls = arguments.split()
+			username = ls[0]
+			if len(ls) > 1:
+				term = ' '.join(ls[1:])
+
+		if username != '':
+
+			if term != '':
+
+				p = re.compile(ur"^(\w+ \d+ \d+:\d+:\d+ <" + username + ur">\t[^.!~,].*\b" + term + ur"\b.*)", re.MULTILINE | re.IGNORECASE)
+			else:
+
+				p = re.compile(ur"^(\w+ \d+ \d+:\d+:\d+ <" + username + ur">\t[^.!~,].*)", re.MULTILINE | re.IGNORECASE)
+
 		else:
+
 			p = re.compile(ur'^(\w+ \d+ \d+:\d+:\d+ <(?!madbot|flanfly|SuikaIbuki|Wobbuffet|Internets|kindbot|ChanStat)[^>]+>\t[^.!~,].*)', re.MULTILINE)
 
 		try:
