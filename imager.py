@@ -2,7 +2,7 @@ import time
 from willie.module import rule
 from apiclient.discovery import build
 
-@rule('^((?!http|https|www).*.(\.png|\.jpg))$')
+@rule('^((?!http|https|www)\w+(\.png|\.jpg))$')
 def imager(bot, trigger, found_match=None):
 
     args = trigger.split('.')
@@ -33,7 +33,7 @@ def imager(bot, trigger, found_match=None):
                 break
 
         except:
-            
+
             time.sleep(2)
             tries += 1
             pass
