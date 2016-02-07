@@ -9,14 +9,15 @@ def imager(bot, trigger, found_match=None):
     term = args[0].lower()
     ext = args[-1].lower()
 
-    service = build("customsearch", "v1",
-                   developerKey=bot.config.google.api_key)
 
     tries = 0
 
     while tries < 3:
 
         try:
+
+            service = build("customsearch", "v1",
+                           developerKey=bot.config.google.api_key)
             res = service.cse().list(
                 cx=bot.config.google.cx_images,
                 q=term,
@@ -32,6 +33,7 @@ def imager(bot, trigger, found_match=None):
                 break
 
         except:
+            
             time.sleep(2)
             tries += 1
             pass
