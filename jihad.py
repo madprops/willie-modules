@@ -1,27 +1,41 @@
-from willie.module import commands
+from willie.module import rule
 from willie.tools import Identifier
 import random
 
-@commands('jihad')
+@rule(ur"^(?!\.).*?\bmemes\b.*$")
 def jihad(bot, trigger, found_match=None):
 
-	nicks = bot.privileges[Identifier(trigger.sender)].keys()
+	global charge
 
-	random.shuffle(nicks)
+	try:
+		charge
+	except NameError:
+		charge = 0
 
-	n = random.randint(1, len(nicks))
+	charge += 10
 
-	nicks = nicks[0:n]
+	if charge >= 100:
 
-	s = ''
+		nicks = bot.privileges[Identifier(trigger.sender)].keys()
 
-	for x in range(0, len(nicks)):
-		s += nicks[x]
-		if len(nicks) > 1:
-			if x == len(nicks) - 2:
-				s += ' and '
-			elif x < len(nicks) - 2:
-				s += ', '
+		random.shuffle(nicks)
 
-	bot.say('a bomb exploded. ' + s + ' died.')
+		n = random.randint(1, len(nicks))
+
+		nicks = nicks[0:n]
+
+		s = ''
+
+		for x in range(0, len(nicks)):
+			s += nicks[x]
+			if len(nicks) > 1:
+				if x == len(nicks) - 2:
+					s += ' and '
+				elif x < len(nicks) - 2:
+					s += ', '
+
+		bot.say('a bomb exploded. ' + s + ' died.')
+
+		charge = 0
+
 
