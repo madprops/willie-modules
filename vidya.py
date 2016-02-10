@@ -1,3 +1,5 @@
+# coding: utf-8
+
 import giantbomb
 from willie.module import commands
 
@@ -24,9 +26,13 @@ def vidya(bot, trigger, found_match=None):
 			for g in game.genres:
 			    s += g['name'] + ", "
 
-			s = s[:-2]
-
-			s += ") " + u'\x02' + "Released On: " + u'\x02' + game.original_release_date[:-9]
+			s = s[:-2] + ")" 
+			
+			try:
+				game.original_release_date[:-9]
+				s += u'\x02' + " Released On: " + u'\x02' + game.original_release_date[:-9]
+			except:
+				pass
 
 			s += u'\x02' + " Developed by: " + u'\x02'
 
