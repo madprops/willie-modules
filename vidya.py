@@ -75,7 +75,7 @@ def vidya(bot, trigger, found_match=None):
 			results = gb.search(arg)[:8]
 			if len(results) == 0:
 				bot.say('game not found')
-			if len(results) == 1:
+			elif len(results) == 1:
 				get_game(results[0])
 			else:
 				result_list = []
