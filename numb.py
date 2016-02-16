@@ -33,3 +33,6 @@ def stringnum(bot, trigger, found_match=None):
         bot.say(txt + ' = ' + str(num1) + ' -> ' + str(num2))
     except:
         bot.say('format must be alphanumeric')
+
+
+

@@ -23,10 +23,14 @@ def vidya(bot, trigger, found_match=None):
 
 			s = u'\x02' + game.name + u'\x02' + " ("
 
-			for g in game.genres:
-			    s += g['name'] + ", "
+			try:
+				for g in game.genres:
+				    s += g['name'] + ", "
 
-			s = s[:-2] + ")" 
+				s = s[:-2] + ")" 
+			
+			except:
+				pass
 			
 			try:
 				game.original_release_date[:-9]
@@ -34,24 +38,32 @@ def vidya(bot, trigger, found_match=None):
 			except:
 				pass
 
-			s += u'\x02' + " Developed by: " + u'\x02'
+			try:
+				s += u'\x02' + " Developed by: " + u'\x02'
 
-			for d in game.developers:
-			    s += d['name'] + ", "
+				for d in game.developers:
+				    s += d['name'] + ", "
 
-			s = s[:-2]
+				s = s[:-2]
 
+			except:
+				pass
 
-			s += u'\x02' + " Published by: " + u'\x02'
+			try:
+				s += u'\x02' + " Published by: " + u'\x02'
 
-			for p in game.publishers:
-			    s += p['name'] + ", "
+				for p in game.publishers:
+				    s += p['name'] + ", "
 
-			s = s[:-2]
+				s = s[:-2]
 
-			print game.image
+			except:
+				pass
 
-			s += u'\x02' + " URL: " + u'\x02' + game.site_detail_url
+			try:
+				s += u'\x02' + " URL: " + u'\x02' + game.site_detail_url
+			except:
+				pass
 
 			bot.say(s)
 
