@@ -5,7 +5,7 @@ import random
 @commands('fmk')
 def fmk(bot, trigger, found_match=None):
 
-	nicks = trigger[5:].strip().split()
+	nicks = trigger[5:].split(',')
 
 	if len(nicks) == 0:
 		nicks = bot.privileges[Identifier(trigger.sender)].keys()
@@ -15,8 +15,8 @@ def fmk(bot, trigger, found_match=None):
 			return
 
 	random.shuffle(nicks)
-	
-	s = 'fuck ' + nicks[0] + ', marry ' + nicks[1] + ', kill ' + nicks[2]
+
+	s = 'fuck ' + nicks[0].strip() + ', marry ' + nicks[1].strip() + ', kill ' + nicks[2].strip()
 
 	bot.say(s)
 
