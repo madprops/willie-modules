@@ -4,7 +4,7 @@ import urllib2
 from bs4 import BeautifulSoup
 from willie.module import commands
 
-@commands('8chan', '8ch')
+@commands('8chan', '8ch', 'news')
 def random_8chan_comment(bot, trigger, found_match=None):
 
     if trigger.is_privmsg:
@@ -17,7 +17,7 @@ def random_8chan_comment(bot, trigger, found_match=None):
 
         try: 
             tries += 1
-            bot.say(get_comment(bot))
+            bot.say(get_comment(bot, trigger))
             return True
 
         except:
@@ -26,16 +26,19 @@ def random_8chan_comment(bot, trigger, found_match=None):
             else:
                 continue
 
-def get_comment(bot):
+def get_comment(bot, trigger):
 
-    urls = []
-    urls.append('https://8ch.net/tech/')
-    urls.append('https://8ch.net/kind/')
-    urls.append('https://8ch.net/pol/')
-    urls.append('https://8ch.net/vg/')
-    urls.append('https://8ch.net/leftypol/')
-    urls.append('https://8ch.net/n/')
-    base_url = random.choice(urls)
+    if trigger == '.news':
+        base_url = 'https://8ch.net/n/'
+    else:
+        urls = []
+        urls.append('https://8ch.net/tech/')
+        urls.append('https://8ch.net/kind/')
+        urls.append('https://8ch.net/pol/')
+        urls.append('https://8ch.net/vg/')
+        urls.append('https://8ch.net/leftypol/')
+        urls.append('https://8ch.net/n/')
+        base_url = random.choice(urls)
     user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
     headers= {'User-Agent':user_agent,} 
 
@@ -51,6 +54,6 @@ def get_comment(bot):
     post = response['posts'][0]
     post_url = base_url + 'res/' + str(thread_number) + '.html'
     soup = BeautifulSoup(post['com'])
-    comment = soup.getText()[:240]
+    comment = u' '.join(soup.findAll(text=True))[:300]
     msg = comment + ' ' + post_url
     return msg
