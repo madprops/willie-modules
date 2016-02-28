@@ -37,8 +37,7 @@ def think(bot, trigger, found_match=None):
 			content = response.read()
 			json_data = json.loads(content.decode('utf8'))
 			children = json_data['data']['children']
-			i = random.randint(0, len(children) - 1)
-			root = children[i]['data']
+			root = random.choice(children)['data']
 			title = root['title']
 			bot.say(title)
 			return
