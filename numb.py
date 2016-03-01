@@ -15,22 +15,23 @@ def string_to_num(txt):
         word_sums += word_sum
     return word_sums
 
-def deconstruct(num):
+def deconstruct(num, s=""):
     sum = 0
     for n in str(num):
         sum += int(n)
+    s += " -> " + str(sum)
     if len(str(sum)) > 1:
-        return deconstruct(sum)
+        return deconstruct(sum, s)
     else:
-        return sum
+        return s
 
 @commands('numb')
 def stringnum(bot, trigger, found_match=None):
     try:
         txt = trigger[6:]
         num1 = string_to_num(txt)
-        num2 = deconstruct(num1)
-        bot.say(txt + ' = ' + str(num1) + ' -> ' + str(num2))
+        deconstruction = deconstruct(num1)
+        bot.say(txt + ' = ' + str(num1) + deconstruction)
     except:
         bot.say('format must be alphanumeric')
 
