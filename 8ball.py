@@ -7,9 +7,6 @@ from willie.formatting import color
 @commands('8ball')
 def speakthetruth(bot, trigger, found_match=None):
 
-	if trigger.strip() == '.8ball':
-		return
-
 	n = random.randint(0, 1)
 
 	if n == 0:
@@ -32,4 +29,4 @@ def speakthetruth(bot, trigger, found_match=None):
 		s.append("one would be wise to think so")
 		msg = color(random.choice(s), '03')
 
-	bot.action('shakes the magic 8 ball.... ' + msg)
+	bot.action('shakes the magic 8 ball... ' + msg)
