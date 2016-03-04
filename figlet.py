@@ -53,6 +53,9 @@ def create_figlet(bot, trigger):
                       help='show font\'s information, use with -f FONT')
     opts, args = parser.parse_args(trigger_args)
 
+    if len(' '.join(args)) > 11:
+      return False
+
     if opts.help:
         if not trigger.is_privmsg:
             bot.reply("I am sending you a notice of the figlet module help")
