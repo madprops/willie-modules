@@ -53,7 +53,7 @@ def create_figlet(bot, trigger):
                       help='show font\'s information, use with -f FONT')
     opts, args = parser.parse_args(trigger_args)
 
-    if len(' '.join(args)) > 11:
+    if len(' '.join(args)) > 8:
       return False
 
     if opts.help:
