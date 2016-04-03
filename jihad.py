@@ -14,7 +14,7 @@ def jihad(bot, trigger, found_match=None):
 
 	charge += 10
 
-	if charge >= 100:
+	if charge >= 200:
 
 		nicks = bot.privileges[Identifier(trigger.sender)].keys()
 
