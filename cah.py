@@ -34,11 +34,11 @@ def cards(bot, trigger, found_match=None):
 	try:
 		answer_lines
 	except NameError:
-		f = open('/home/willie/answers.txt')
+		f = open('/home/willie/white')
 		answer_lines = f.readlines()
 
-	num_questions = 418
-	num_answers = 1030
+	num_questions = 406
+	num_answers = 688
 
 	args = ' ' + trigger[6:].strip()
 
@@ -47,7 +47,7 @@ def cards(bot, trigger, found_match=None):
 
 	def random_question():
 		global used_questions
-		afile = open('/home/willie/questions.txt')
+		afile = open('/home/willie/black')
 		line = next(afile)
 		status = 'ended'
 		for num, aline in enumerate(afile):
@@ -69,9 +69,9 @@ def cards(bot, trigger, found_match=None):
 		for p in players:
 			if p != czar:
 				nums = random.sample(range(0, num_answers - 1), 10)
-				bot.notice('here are your cards. use ".cards id" to choose your answer', recipient=p)
+				bot.msg(p, '-------- here are your cards. use ".cards id" to choose your answer --------', 1)
 				for n in nums:
-					bot.notice(str(n) + ' - ' + answer_lines[n], recipient=p)
+					bot.msg(p, str(n) + ' - ' + answer_lines[n], 1)
 
 	def end_game():
 		global czar
@@ -101,6 +101,12 @@ def cards(bot, trigger, found_match=None):
 			bot.say('game has not started. use ".cards start" to begin')
 		else:
 			bot.say('game is ongoing. use ".cards start" to start a new game')
+		return
+
+	if args == ' reset deck':
+		f = open('/home/willie/white')
+		answer_lines = f.readlines()
+		bot.say('done!!')
 		return
 
 	if args == ' start':
@@ -181,9 +187,13 @@ def cards(bot, trigger, found_match=None):
 				bot.say('that person is not playing!')
 				return
 			else:
-				bot.say(p + ' won!')
-				next_round()
-				return
+				if trigger.nick != czar:
+					bot.say('you are not the czar!')
+					return
+				else:
+					bot.say(p + ' won!')
+					next_round()
+					return
 
 		if args.split()[0].isdigit():
 			id = int(args.split()[0])
