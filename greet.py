@@ -4,7 +4,7 @@ import sqlite3
 import datetime
 from willie.module import commands, rule, event
 
-# if it doesn't exist, create a sqlite database 
+# if it doesn't exist, create a sqlite database
 # and create this table CREATE TABLE greets(id integer primary key, user text, message text);
 
 @commands('greet')

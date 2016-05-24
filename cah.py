@@ -198,13 +198,7 @@ def cards(bot, trigger, found_match=None):
 		if args.split()[0].isdigit():
 			id = int(args.split()[0])
 			if id + 1 > num_answers:
-				return 
+				return
 			else:
 				bot.say(trigger.nick + ' chose "' + answer_lines[id].strip() + '"')
 				return
-
-			
-
-
-
-
