@@ -37,7 +37,8 @@ def check_later(bot, trigger, found_match=None):
     conn = sqlite3.connect('/home/willie/willie.db')
     c = conn.cursor()
     ids = []
-    c.execute('SELECT * FROM laters WHERE receiver LIKE ? COLLATE NOCASE', (trigger.nick + "%",))
+    c.execute("SELECT * FROM laters WHERE ? LIKE '%' || receiver || '%' COLLATE NOCASE", (trigger.nick,))
+
     for later in c:
         ids.append(later[0])
         sender = later[1]
