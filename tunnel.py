@@ -14,7 +14,7 @@ def fill():
 @commands('tunnel')
 def tunnel(bot, trigger, found_match=None):
 
-	msg = u'\x02' + '[an alien message appears]' + u'\x02' + ' ' + trigger[8:] + ' (answer with .tunnel msg)'
+	msg = u'\x02' + '[an alien message appears]' + u'\x02' + ' ' + trigger[8:] + ' (answer with .tunnel)'
 
 	if trigger.sender == '#podricing':
 		bot.msg('#neritic-net', msg, 1)
