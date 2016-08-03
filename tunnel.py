@@ -14,12 +14,15 @@ def fill():
 @commands('tunnel')
 def tunnel(bot, trigger, found_match=None):
 
-	msg = u'\x02' + '[an alien message appears]' + u'\x02' + ' ' + trigger[8:] + ' (answer with .tunnel)'
+	message = trigger[8:].strip()
 
-	if trigger.sender == '#podricing':
-		bot.msg('#neritic-net', msg, 1)
-		bot.say('sending message' + fill())
+	if message != '':
+		msg = u'\x02' + '[an alien message appears]' + u'\x02' + ' ' + message + ' (answer with .tunnel)'
 
-	elif trigger.sender == '#neritic-net':
-		bot.msg('#podricing', msg, 1)
-		bot.say('sending message' + fill())
+		if trigger.sender == '#podricing':
+			bot.msg('#neritic-net', msg, 1)
+			bot.say('sending message' + fill())
+
+		elif trigger.sender == '#neritic-net':
+			bot.msg('#podricing', msg, 1)
+			bot.say('sending message' + fill())

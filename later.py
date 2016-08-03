@@ -14,19 +14,19 @@ def create_later(bot, trigger, found_match=None):
     try:
         conn = sqlite3.connect('/home/willie/willie.db')
         c = conn.cursor()
-        cmd = trigger.group(2)
-        regex = re.compile(r"^(?P<receiver>\S+)\s+(?P<message>.*)$")
+        cmd = ' '.join(trigger.group(2).strip().split())
+        regex = re.compile(r"^(?P<receivers>\S+(?: and \S+)*)\s*(?P<message>.*)$")
         match = regex.match(cmd)
         sender = trigger.nick
-        receiver = match.group('receiver')
+        receivers = match.group('receivers').split(' and ')
         message = match.group('message')
         date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        t = (sender, receiver, message, date)
-        c.execute('INSERT INTO laters VALUES (NULL,?,?,?,?)', t)
+        for receiver in receivers:
+            t = (sender, receiver, message, date)
+            c.execute('INSERT INTO laters VALUES (NULL,?,?,?,?)', t)
         conn.commit()
         conn.close()
-        #the lucky number thing is because i use it in a channel where it kicks you if you say the same thing 3 times
-        bot.say('Ok I will tell ' + receiver + '!')
+        bot.say('Ok I will tell ' + match.group('receivers') + '!')
     except:
         bot.say('something went wrong, ' + str(random.randint(1,1000)) + ' children have been sacrificed')
 
