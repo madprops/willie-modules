@@ -16,7 +16,10 @@ def fmk(bot, trigger, found_match=None):
 
 	random.shuffle(nicks)
 
-	s = 'fuck ' + nicks[0].strip() + ', marry ' + nicks[1].strip() + ', kill ' + nicks[2].strip()
+	if nicks[0].strip() == nicks[1].strip() and nicks[0].strip() == nicks[2].strip():
+		s = 'fuck you, marry your mom, kill yourself'
+	else:
+		s = 'fuck ' + nicks[0].strip() + ', marry ' + nicks[1].strip() + ', kill ' + nicks[2].strip()
 
 	bot.say(s)
 

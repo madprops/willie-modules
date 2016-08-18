@@ -68,6 +68,22 @@ def quote(bot, trigger, found_match=None):
 
 	elif arguments[0:7] == 'context':
 
+		lenargs = arguments[8:].strip().split()
+
+		lbefore = 2
+		lafter = 2
+
+		if len(lenargs) > 0:
+			if len(lenargs) == 1:
+				if lenargs[0].isdigit():
+					lbefore = min(int(lenargs[0]), 10)
+					lafter = lbefore
+			if len(lenargs) == 2:
+				if lenargs[0].isdigit():
+					lbefore = min(int(lenargs[0]), 10)
+				if lenargs[1].isdigit():
+					lafter = min(int(lenargs[1]), 10)
+
 		if last_date != '':
 
 			with open(fname, 'r') as f:
@@ -80,8 +96,8 @@ def quote(bot, trigger, found_match=None):
 					n = i
 					break
 
-			for x in range(0, 5):
-				d = -2 + x
+			for x in range(0, (1 + lbefore + lafter)):
+				d = -(lbefore) + x
 				try:
 					s = lines[n + d]
 					s = ' '.join(s.split()).strip()[16:]
@@ -89,8 +105,6 @@ def quote(bot, trigger, found_match=None):
 						bot.say(s)
 				except:
 					pass
-
-			last_date = ''
 
 	else:
 		with open(fname, 'r') as f:

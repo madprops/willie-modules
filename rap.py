@@ -85,7 +85,7 @@ def rap(bot, trigger, found_match=None):
 
 	else:
 		diff = time.time() - rap_time
-		if diff > rap_time_limit:
+		if diff > (rap_time_limit + 1):
 			bot.say(str(int(diff)) + ' seconds have passed, the game has ended. you reached level ' + str(rap_level))
 			rap_status = 'stopped'
 			return

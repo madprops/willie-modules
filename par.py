@@ -81,7 +81,7 @@ def par(bot, trigger, found_match=None):
 
 	else:
 		diff = time.time() - par_time
-		if diff > par_time_limit:
+		if diff > (par_time_limit + 1):
 			bot.say(str(int(diff)) + ' seconds have passed, the game has ended. you reached level ' + str(par_level))
 			par_status = 'stopped'
 			return
