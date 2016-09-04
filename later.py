@@ -7,7 +7,7 @@ from willie.module import commands, rule, event
 # if it doesn't exist, create a sqlite database 
 # and create this table CREATE TABLE laters(id integer primary key, sender text, receiver text, message text, date text);
 
-@commands('plstell')
+@commands('plstell', 'tell')
 def create_later(bot, trigger, found_match=None):
     if trigger.is_privmsg:
         return

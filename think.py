@@ -17,7 +17,7 @@ def think(bot, trigger, found_match=None):
 
 	tries = 0
 
-	while tries < 4:
+	while tries < 3:
 
 		n = random.randint(0, 17)
 
@@ -46,3 +46,5 @@ def think(bot, trigger, found_match=None):
 			time.sleep(2)
 			tries += 1
 			pass
+
+	bot.say('I have no thoughts on that awful subject.')

@@ -29,9 +29,11 @@ def check_for_new_videos(bot):
 		f.truncate()
 		f.close()
 	else:
-		if fnum > fnum_current:
+		if int(fnum) > int(fnum_current):
 			for x in range(int(fnum_current) + 1, int(fnum) + 1):
-				bot.msg('#podricing', 'new video! http://handbeezy.com/' + str(x) + '/ (possibly nsfw)')
+				msg = 'new video! http://handbeezy.com/' + str(x) + '/ (possibly nsfw)'
+				bot.msg('#podricing', msg)
+				bot.msg('#neritic-net', msg)
 			f.seek(0)
 			f.write(fnum)
 			f.truncate()

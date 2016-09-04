@@ -1,15 +1,42 @@
 # coding: utf-8
 
 import random
+import string
 from willie.module import commands
 from willie.formatting import color
+
+def to_int(question):
+
+	characters = string.ascii_letters
+	numbers = '0123456789'
+
+	sum = 0
+	for c in question:
+		n = 0
+		try:
+			n = characters.index(c) + 1
+		except:
+			try:
+				n = numbers.index(c)
+			except:
+				pass
+		sum += n
+
+	return sum
 
 @commands('8ball')
 def speakthetruth(bot, trigger, found_match=None):
 
-	n = random.randint(0, 1)
+	question = trigger.group(2)
 
-	if n == 0:
+	if not question:
+		sum = random.randint(0, 100)
+
+	else:
+		sum = to_int(question)
+
+	if sum % 2 == 0:
+
 		s = []
 		s.append("it's pretty obvious the answer is no")
 		s.append("negative")
@@ -20,6 +47,7 @@ def speakthetruth(bot, trigger, found_match=None):
 		msg = color(random.choice(s), '04')
 
 	else:
+
 		s = []
 		s.append("that's certainly so")
 		s.append("i have no doubt in my mind")

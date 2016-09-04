@@ -16,4 +16,7 @@ def decide(bot, trigger, found_match=None):
 	else:
 		arg_list = args[8:].split(',')
 
-	bot.say(random.choice(arg_list).strip())
+	if arg_list.count(arg_list[0]) == len(arg_list):
+		bot.say('it seems you already know')
+	else:
+		bot.say(random.choice(arg_list).strip())
