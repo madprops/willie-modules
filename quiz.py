@@ -11,7 +11,7 @@ def escape(html):
 	d = re.sub('&([^;]+);', lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]), s)
 	d.encode('utf-8')
 	return d
-	
+
 @commands('quiz')
 # @interval(86400)
 def quiz(bot, trigger=None, found_match=None):
@@ -25,10 +25,11 @@ def quiz(bot, trigger=None, found_match=None):
 
 	arg = trigger[6:].strip().lower()
 
-	if arg != '':
+	if arg != '' and last_answer != '':
 
 		if arg == last_answer:
 			bot.say('that is correct, it is ' + arg)
+			last_answer = ''
 		else:
 			bot.say(arg + ' is a wrong answer')
 
